@@ -1,0 +1,149 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	template="/templates/mainLayout.xhtml">
+
+	<ui:define name="menu">
+		<ui:include src="/includes/mainMenu.xhtml" />
+	</ui:define>
+	<ui:define name="conteudo">
+		<h:form id="frmClientesList">
+			<p:dataTable id="tblCliente" var="cliente"
+				emptyMessage="Nenhum registro encontrado"
+				value="#{MBCliente.clientes}" paginator="true" rows="15">
+				<f:facet name="header">
+					Clientes
+				</f:facet>
+				<p:column headerText="ID">
+					<h:outputText value="#{cliente.id}" />
+				</p:column>
+				<p:column headerText="Nome" filterBy="#{cliente.nome}">
+					<h:outputText value="#{cliente.name}" />
+				</p:column>
+				<p:column headerText="VIP?">
+					<h:selectBooleanCheckbox disabled="true" value="#{cliente.vip}" />
+				</p:column>
+				<p:column headerText="Ações">
+					<p:commandButton icon="ui-icon-search"
+						actionListener="#{MBCliente.createClienteFromRowData}"
+						oncomplete="PF('dlgEditCliente').show();"
+						update=":frmEditCliente:pnlEditCliente"/>
+					<p:commandButton icon="ui-icon-trash"
+						actionListener="#{MBCliente.createClienteFromRowData}"
+						oncomplete= "PF('dlgDelCliente').show();"
+						update=":frmDelCliente:pnlDelCliente"/>
+						
+				</p:column>
+				<f:facet name="footer">
+					<p:commandButton value="Novo"
+						actionListener="#{MBCliente.createCliente}"
+						oncomplete="PF('dlgNewCliente').show();"
+						update=":frmNewCliente:pnlNewCliente" />
+				</f:facet>
+			</p:dataTable>
+		</h:form>
+
+		<p:dialog widgetVar="dlgNewCliente" closable="true" resizable="false"
+			modal="true" appendTo="@(body)" header="Nova Cliente">
+			<h:form id="frmNewCliente">
+				<h:panelGrid id="pnlNewCliente" columns="2">
+					<p:outputLabel value="Nome: " />
+					<p:inputText size="30" maxlength="50"
+						value="#{MBCliente.cliente.name}" />
+					<p:outputLabel value="CPF: " />
+					<p:inputText size="30" maxlength="50"
+						value="#{MBCliente.cliente.CPF}" />
+					<p:outputLabel value="Email: " />
+					<p:inputText size="30" maxlength="50"
+						value="#{MBCliente.cliente.email}" />
+					<p:outputLabel value="Telefone: " />
+					<p:inputText size="30" maxlength="50"
+						value="#{MBCliente.cliente.phone}" />
+					<p:outputLabel value="VIP? " />
+					<p:selectBooleanCheckbox size="30" maxlength="50"
+						value="#{MBCliente.cliente.vip}" />
+
+
+				</h:panelGrid>
+				<h:panelGrid columns="2">
+					<p:commandButton value="Salvar" actionListener="#{MBCliente.save}"
+						oncomplete="PF('dlgNewCliente').hide();"
+						update=":frmClientesList:tblCliente :msgGlobal" />
+					<p:commandButton value="Cancelar"
+						onclick="PF('dlgNewCliente').hide();" />
+				</h:panelGrid>
+			</h:form>
+		</p:dialog>
+
+		<p:dialog widgetVar="dlgEditCliente" closable="true" resizable="false"
+			modal="true" appendTo="@(body)" header="Atualizar Cliente">
+			<h:form id="frmEditCliente">
+				<h:panelGrid id="pnlEditCliente" columns="2">
+					<p:outputLabel value="Nome: " />
+					<p:inputText size="30" maxlength="50"
+						value="#{MBCliente.cliente.name}" />
+					<p:outputLabel value="CPF: " />
+					<p:inputText size="30" maxlength="50"
+						value="#{MBCliente.cliente.CPF}" />
+					<p:outputLabel value="Email: " />
+					<p:inputText size="30" maxlength="50"
+						value="#{MBCliente.cliente.email}" />
+					<p:outputLabel value="Telefone: " />
+					<p:inputText size="30" maxlength="50"
+						value="#{MBCliente.cliente.phone}" />
+					<p:outputLabel value="VIP? " />
+					<p:selectBooleanCheckbox size="30" maxlength="50"
+						value="#{MBCliente.cliente.vip}" />
+
+
+				</h:panelGrid>
+				<h:panelGrid columns="2">
+					<p:commandButton value="Atualizar"
+						actionListener="#{MBCliente.edit}"
+						oncomplete="PF('dlgEditCliente').hide();"
+						update=":frmClientesList:tblCliente :msgGlobal" />
+					<p:commandButton value="Cancelar"
+						onclick="PF('dlgEditCliente').hide();" />
+				</h:panelGrid>
+			</h:form>
+		</p:dialog>
+
+		<p:dialog widgetVar="dlgDelCliente" closable="true" resizable="false"
+			modal="true" appendTo="@(body)" header="Excluir Cliente">
+			<h:form id="frmDelCliente">
+				<h:panelGrid id="pnlDelCliente" columns="2">
+					<p:outputLabel value="Nome: " />
+					<p:outputLabel size="30" maxlength="50"
+						value="#{MBCliente.cliente.name}" />
+					<p:outputLabel value="CPF: " />
+					<p:outputLabel size="30" maxlength="50"
+						value="#{MBCliente.cliente.CPF}" />
+					<p:outputLabel value="Email: " />
+					<p:outputLabel size="30" maxlength="50"
+						value="#{MBCliente.cliente.email}" />
+					<p:outputLabel value="Telefone: " />
+					<p:outputLabel size="30" maxlength="50"
+						value="#{MBCliente.cliente.phone}" />
+					<p:outputLabel value="VIP? " />
+					<p:selectBooleanCheckbox disabled="true" size="30" maxlength="50"
+						value="#{MBCliente.cliente.vip}" />
+
+
+				</h:panelGrid>
+				<h:panelGrid columns="2">
+					<p:commandButton value="Excluir"
+						actionListener="#{MBCliente.delete}"
+						oncomplete="PF('dlgDelCliente').hide();"
+						update=":frmClientesList:tblCliente :msgGlobal" />
+					<p:commandButton value="Cancelar"
+						onclick="PF('dlgDelCliente').hide();" />
+				</h:panelGrid>
+			</h:form>
+		</p:dialog>
+
+	</ui:define>
+</ui:composition>

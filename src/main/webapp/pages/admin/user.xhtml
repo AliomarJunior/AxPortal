@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	template="/templates/mainLayout.xhtml">
+
+	<ui:define name="menu">
+		<ui:include src="/includes/mainMenu.xhtml" />
+	</ui:define>
+	<ui:define name="conteudo">
+		<h:form id="frmUserList">
+			<p:dataTable id="tblUser"
+				emptyMessage="Nenhum registro encontrado" value="#{MBUser.users}"
+				paginator="true" 
+				rows="15">
+				<f:facet name="header">
+					Usuarios
+				</f:facet>
+				<p:column headerText="ID">
+					<h:outputText value="#{user.id}" />
+				</p:column>
+				<p:column headerText="nome" filterBy="#{user.nome}">
+					<h:outputText value="#{user.nome}" />
+				</p:column>
+				<p:column headerText="Nivel Permissão">
+					<p:selectOneMenu value="#{user.roles}" />
+				</p:column>
+				<p:column headerText="Ações">
+					<p:commandButton icon="ui-icon-search"
+						actionListener="#{MBUser.createUserFromRowData}"
+						oncomplete="PF('dlgEditUser').show();"
+						update=":frmEditUser:pnlEditUser" />
+					<p:commandButton icon="ui-icon-trash"
+						actionListener="#{MBUser.createUserFromRowData}"
+						oncomplete="PF('dlgDelUser').show();"
+						update=":frmDelUser:pnlDelUser" />
+				</p:column>
+				<f:facet name="footer">
+					<p:commandButton value="Novo" actionListener="#{MBUser.createUser}"
+						oncomplete="PF('dlgNewUser').show();"
+						update=":frmNewUser:pnlNewUser" />
+				</f:facet>
+			</p:dataTable>
+		</h:form>
+
+		<p:dialog widgetVar="dlgNewUser" closable="true" resizable="false"
+			modal="true" appendTo="@(body)" header="Novo Usuario">
+			<h:form id="frmNewUser">
+				<h:panelGrid id="pnlNewUser" columns="2">
+					<p:outputLabel value="Nome: " />
+					<p:inputText size="30" maxlength="50"
+						value="#{MBUser.user.nome}" />
+					<p:outputLabel value="Nivel Permissão: " />
+					<p:selectOneMenu size="30" maxlength="1" value="#{MBUser.roles}" />
+				</h:panelGrid>
+				<h:panelGrid columns="2">
+					<p:commandButton value="Salvar" actionListener="#{MBUser.save}"
+						oncomplete="PF('dlgNewUser').hide();"
+						update=":frmUserList:tblUser :msgGlobal" />
+					<p:commandButton value="Cancelar"
+						onclick="PF('dlgNewUser').hide();" />
+				</h:panelGrid>
+			</h:form>
+		</p:dialog>
+
+		<p:dialog widgetVar="dlgDelUser" closable="true" resizable="false"
+			modal="true" appendTo="@(body)" header="Excluir Usuario">
+			<h:form id="frmDelUser">
+				<h:panelGrid id="pnlDelUser" columns="2">
+					<p:outputLabel value="ID:" />
+					<h:outputText size="30" maxlength="50" value="#{MBUser.user.id}" />
+
+					<p:outputLabel value="Nome:" />
+					<h:outputText size="30" maxlength="50"
+						value="#{MBuser.nome}" />
+
+					<p:outputLabel value="Nivel Permissao:" />
+					<h:outputText size="30" maxlength="30" value="#{MBUser.user.role.descricao}" />
+				</h:panelGrid>
+				<h:panelGrid columns="2">
+					<p:commandButton value="Excluir" actionListener="#{MBUser.delete}"
+						oncomplete="PF('dlgDelUser').hide();"
+						update=":frmUserList:tblUser :msgGlobal" />
+					<p:commandButton value="Cancelar"
+						onclick="PF('dlgDelUser').hide();" />
+				</h:panelGrid>
+			</h:form>
+		</p:dialog>
+
+		<p:dialog widgetVar="dlgEditUser" closable="true" resizable="false"
+			modal="true" appendTo="@(body)" header="Editar Usuario">
+			<h:form id="frmEditUsser">
+				<h:panelGrid id="pnlEditUser" columns="2">
+					<p:outputLabel value="ID:" />
+					<h:outputText size="30" maxlength="50" value="#{MBUser.user.id}" />
+
+					<p:outputLabel value="Nome:" />
+					<p:inputText size="30" maxlength="50"
+						value="#{MBRole.role.descricao}" />
+
+					<p:outputLabel value="Nivel Permissao:" />
+					<p:selectOneMenu size="30" maxlength="1" value="#{MBUser.roles}" />
+				</h:panelGrid>
+				<h:panelGrid columns="2">
+					<p:commandButton value="Atualizar" actionListener="#{MBUser.edit}"
+						oncomplete="PF('dlgEditUser').hide();"
+						update=":frmUserList:tblUser :msgGlobal" />
+					<p:commandButton value="Cancelar"
+						onclick="PF('dlgEditUser').hide();" />
+				</h:panelGrid>
+			</h:form>
+		</p:dialog>
+
+	</ui:define>
+</ui:composition>
