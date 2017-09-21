@@ -11,11 +11,10 @@
 		<ui:include src="/includes/mainMenu.xhtml" />
 	</ui:define>
 	<ui:define name="conteudo">
+
 		<h:form id="frmUserList">
-			<p:dataTable id="tblUser"
-				emptyMessage="Nenhum registro encontrado" value="#{MBUser.users}"
-				paginator="true" 
-				rows="15">
+			<p:dataTable id="tblUser" emptyMessage="Nenhum registro encontrado"
+				value="#{MBUser.users}" var="user" paginator="true" rows="15">
 				<f:facet name="header">
 					Usuarios
 				</f:facet>
@@ -26,7 +25,7 @@
 					<h:outputText value="#{user.nome}" />
 				</p:column>
 				<p:column headerText="Nivel Permissão">
-					<p:selectOneMenu value="#{user.roles}" />
+					<h:outputText value="#{user.role.descricao}" />
 				</p:column>
 				<p:column headerText="Ações">
 					<p:commandButton icon="ui-icon-search"
@@ -51,10 +50,13 @@
 			<h:form id="frmNewUser">
 				<h:panelGrid id="pnlNewUser" columns="2">
 					<p:outputLabel value="Nome: " />
-					<p:inputText size="30" maxlength="50"
-						value="#{MBUser.user.nome}" />
+					<p:inputText size="30" maxlength="50" value="#{MBUser.user.nome}" />
 					<p:outputLabel value="Nivel Permissão: " />
-					<p:selectOneMenu size="30" maxlength="1" value="#{MBUser.roles}" />
+					<p:selectOneMenu value="#{MBUser.user.role.id}" size="30" maxlength="30">
+						<f:selectItem itemLabel="" noSelectionOption="true" />
+						<f:selectItems value="#{MBUser.roles}" var="role"
+						itemValue="#{role.id}" itemLabel="#{role.descricao}" />
+					</p:selectOneMenu>
 				</h:panelGrid>
 				<h:panelGrid columns="2">
 					<p:commandButton value="Salvar" actionListener="#{MBUser.save}"
@@ -74,11 +76,11 @@
 					<h:outputText size="30" maxlength="50" value="#{MBUser.user.id}" />
 
 					<p:outputLabel value="Nome:" />
-					<h:outputText size="30" maxlength="50"
-						value="#{MBuser.nome}" />
+					<h:outputText size="30" maxlength="50" value="#{MBuser.nome}" />
 
 					<p:outputLabel value="Nivel Permissao:" />
-					<h:outputText size="30" maxlength="30" value="#{MBUser.user.role.descricao}" />
+					<h:outputText size="30" maxlength="30"
+						value="#{MBUser.user.role.descricao}" />
 				</h:panelGrid>
 				<h:panelGrid columns="2">
 					<p:commandButton value="Excluir" actionListener="#{MBUser.delete}"
@@ -92,7 +94,7 @@
 
 		<p:dialog widgetVar="dlgEditUser" closable="true" resizable="false"
 			modal="true" appendTo="@(body)" header="Editar Usuario">
-			<h:form id="frmEditUsser">
+			<h:form id="frmEditUser">
 				<h:panelGrid id="pnlEditUser" columns="2">
 					<p:outputLabel value="ID:" />
 					<h:outputText size="30" maxlength="50" value="#{MBUser.user.id}" />

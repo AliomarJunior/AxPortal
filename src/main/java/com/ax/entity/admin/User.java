@@ -14,7 +14,7 @@ public class User {
 	private String nome;
 	private String password;
 	private Date dateCreated;
-	private Role role;
+	private Role role = new Role();
 
 	public Long getId() {
 		return id;

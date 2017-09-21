@@ -1,16 +1,16 @@
 package com.ax.bean;
 
 import java.sql.SQLException;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
 import javax.faces.model.ListDataModel;
 
+import com.ax.dao.admin.RoleDAO;
 import com.ax.dao.admin.UserDAO;
+import com.ax.entity.admin.Role;
 import com.ax.entity.admin.User;
 import com.ax.util.JSFUtil;
 
@@ -18,9 +18,9 @@ import com.ax.util.JSFUtil;
 @ViewScoped
 public class UserBean {
 	
-	private User user; 
+	private User user = new User(); 
 	private ListDataModel<User> users;
-	private Map<Long,String> roles;
+	private List<Role> roles;
 	
 	public User getUser() {
 		return user;
@@ -38,14 +38,18 @@ public class UserBean {
 		this.users = users;
 	}
 	
-	public Map<Long, String> getRoles() {
-		roles = new HashMap<Long, String>();
-		roles.put(1L, "Admin");
-		roles.put(2L, "User");
+	public List<Role> getRoles() {
+		RoleDAO roleDAO = new RoleDAO();
+		try {
+			roles = roleDAO.findList();
+		} catch (SQLException e) {
+			JSFUtil.sendMessageError(e.getMessage());
+			e.printStackTrace();
+		}
 		return roles;
 	}
 
-	public void setRoles(Map<Long, String> roles) {
+	public void setRoles(List<Role> roles) {
 		this.roles = roles;
 	}
 
@@ -74,7 +78,7 @@ public class UserBean {
 		try {
 			userDAO.save(user);
 			this.loadUser();
-			JSFUtil.sendMessageSucess("Usuario salva com sucesso!");
+			JSFUtil.sendMessageSucess("Usuario salvo com sucesso!");
 		} catch (SQLException e) {
 			JSFUtil.sendMessageError(e.getMessage());
 		}
