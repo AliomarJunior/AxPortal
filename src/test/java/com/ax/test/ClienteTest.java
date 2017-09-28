@@ -43,6 +43,7 @@ public class ClienteTest {
 	
 	@Test
 	public void atualizarCliente() throws Exception{
+		incluirCliente();
 		consultarCliente();
 		cliente.setName("clienteTestEdit");
 		clienteDAO.edit(cliente);
@@ -50,6 +51,7 @@ public class ClienteTest {
 	
 	@Test
 	public void excluirCliente() throws Exception{
+		incluirCliente();
 		consultarCliente();
 		clienteDAO.delete(cliente);
 	}

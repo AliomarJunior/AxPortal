@@ -7,18 +7,18 @@ SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='TRADITIONAL,ALLOW_INVALID_DATES';
 -- -----------------------------------------------------
 -- Schema AxPortal
 -- -----------------------------------------------------
-DROP SCHEMA IF EXISTS `AxPortal` ;
+DROP SCHEMA IF EXISTS `axportal` ;
 
 -- -----------------------------------------------------
 -- Schema AxPortal
 -- -----------------------------------------------------
-CREATE SCHEMA IF NOT EXISTS `AxPortal` DEFAULT CHARACTER SET utf8 ;
+CREATE SCHEMA IF NOT EXISTS `axportal` DEFAULT CHARACTER SET utf8 ;
 USE `AxPortal` ;
 
 -- -----------------------------------------------------
 -- Table `AxPortal`.`role`
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `AxPortal`.`role` (
+CREATE TABLE IF NOT EXISTS `axportal`.`role` (
   `id` INT NOT NULL AUTO_INCREMENT,
   `descricao` VARCHAR(50) NOT NULL,
   `nivel` VARCHAR(1) NOT NULL,
@@ -29,7 +29,7 @@ ENGINE = InnoDB;
 -- -----------------------------------------------------
 -- Table `AxPortal`.`user`
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `AxPortal`.`user` (
+CREATE TABLE IF NOT EXISTS `axportal`.`user` (
   `id` INT NOT NULL AUTO_INCREMENT,
   `name` VARCHAR(100) NOT NULL,
   `password` VARCHAR(10) NOT NULL,
@@ -48,7 +48,7 @@ ENGINE = InnoDB;
 -- -----------------------------------------------------
 -- Table `AxPortal`.`cliente`
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `AxPortal`.`cliente` (
+CREATE TABLE IF NOT EXISTS `axportal`.`cliente` (
   `id` INT NOT NULL AUTO_INCREMENT,
   `name` VARCHAR(50) NOT NULL,
   `cpf` VARCHAR(20) NOT NULL,
