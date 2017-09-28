@@ -3,6 +3,7 @@ package com.ax.test;
 import java.sql.SQLException;
 
 import org.junit.BeforeClass;
+import org.junit.Ignore;
 import org.junit.Test;
 
 import com.ax.dao.cadastro.ClienteDAO;
@@ -23,13 +24,23 @@ public class ClienteTest {
 		cliente.setPhone("1199871234");
 		cliente.setVip(true);
 	}
+	
+	@Test
+	public void testeGRUDCliente() throws Exception{
+		incluirCliente();
+		consultarCliente();
+		atualizarCliente();
+		excluirCliente();
+	}
 
 	@Test
+	@Ignore
 	public void incluirCliente() throws SQLException{
 		clienteDAO.save(cliente);
 	}
 	
 	@Test
+	@Ignore
 	public void consultarCliente() throws Exception{
 		for (Cliente c : clienteDAO.findList()) {
 			if(cliente.getCPF().equals(c.getCPF())){
@@ -42,16 +53,16 @@ public class ClienteTest {
 	}
 	
 	@Test
+	@Ignore
 	public void atualizarCliente() throws Exception{
-		incluirCliente();
 		consultarCliente();
 		cliente.setName("clienteTestEdit");
 		clienteDAO.edit(cliente);
 	}
 	
 	@Test
+	@Ignore
 	public void excluirCliente() throws Exception{
-		incluirCliente();
 		consultarCliente();
 		clienteDAO.delete(cliente);
 	}
