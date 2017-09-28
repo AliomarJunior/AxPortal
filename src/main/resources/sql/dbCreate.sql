@@ -55,7 +55,9 @@ CREATE TABLE IF NOT EXISTS `AxPortal`.`cliente` (
   `email` VARCHAR(50) NULL,
   `phone` BIGINT(20) NULL,
   `vip` TINYINT NULL,
-  PRIMARY KEY (`id`))
+  PRIMARY KEY (`id`),
+  UNIQUE INDEX `cpf_UNIQUE` (`cpf` ASC),
+  UNIQUE INDEX `email_UNIQUE` (`email` ASC))
 ENGINE = InnoDB;
 
 
