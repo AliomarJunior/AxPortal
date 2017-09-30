@@ -48,6 +48,7 @@
 					<server>tomcat8_vy</server>
 					<username>admin</username>
 					<password>admin</password>
+					<update>true</update>
 				</configuration>
 			</plugin>
 		</plugins>
