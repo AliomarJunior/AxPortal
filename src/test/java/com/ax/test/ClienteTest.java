@@ -25,7 +25,6 @@ public class ClienteTest {
 		cliente.setVip(true);
 	}
 	
-	@Test
 	public void testeGRUDCliente() throws Exception{
 		incluirCliente();
 		consultarCliente();
@@ -33,14 +32,11 @@ public class ClienteTest {
 		excluirCliente();
 	}
 
-	@Test
-	@Ignore
 	public void incluirCliente() throws SQLException{
 		clienteDAO.save(cliente);
 	}
 	
 	@Test
-	@Ignore
 	public void consultarCliente() throws Exception{
 		for (Cliente c : clienteDAO.findList()) {
 			if(cliente.getCPF().equals(c.getCPF())){
@@ -52,16 +48,12 @@ public class ClienteTest {
 		throw new Exception("cliente não foi localizado");
 	}
 	
-	@Test
-	@Ignore
 	public void atualizarCliente() throws Exception{
 		consultarCliente();
 		cliente.setName("clienteTestEdit");
 		clienteDAO.edit(cliente);
 	}
 	
-	@Test
-	@Ignore
 	public void excluirCliente() throws Exception{
 		consultarCliente();
 		clienteDAO.delete(cliente);
