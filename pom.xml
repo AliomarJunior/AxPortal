@@ -7,10 +7,6 @@
 	<packaging>war</packaging>
 	<name>AxWebSite</name>
 	<description>Projeto para treinamento de funcionalidade JSF - PrimeFaces - JPA</description>
-	<properties>
-		<runSuite>**/ClienteTest.class</runSuite>
-	</properties>
-	
 	<repositories>
 		<repository>
 			<id>prime-repo</id>
