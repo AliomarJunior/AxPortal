@@ -25,6 +25,7 @@ public class ClienteTest {
 		cliente.setVip(true);
 	}
 	
+	@Test
 	public void testeGRUDCliente() throws Exception{
 		incluirCliente();
 		consultarCliente();
@@ -36,7 +37,6 @@ public class ClienteTest {
 		clienteDAO.save(cliente);
 	}
 	
-	@Test
 	public void consultarCliente() throws Exception{
 		for (Cliente c : clienteDAO.findList()) {
 			if(cliente.getCPF().equals(c.getCPF())){
