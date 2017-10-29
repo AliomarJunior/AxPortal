@@ -29,8 +29,8 @@ public class ClienteTest {
 	
 	@Test
 	public void testeGRUDCliente() throws Exception{
-		incluirCliente();
-		/*consultarCliente();
+		/*incluirCliente();
+		consultarCliente();
 		atualizarCliente();
 		excluirCliente();*/
 	}
