@@ -2,6 +2,8 @@ package com.ax.test;
 
 import java.sql.SQLException;
 
+import javax.management.DescriptorKey;
+
 import org.junit.BeforeClass;
 import org.junit.Ignore;
 import org.junit.Test;
@@ -28,9 +30,9 @@ public class ClienteTest {
 	@Test
 	public void testeGRUDCliente() throws Exception{
 		incluirCliente();
-		consultarCliente();
+		/*consultarCliente();
 		atualizarCliente();
-		excluirCliente();
+		excluirCliente();*/
 	}
 
 	public void incluirCliente() throws SQLException{
